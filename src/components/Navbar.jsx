@@ -7,10 +7,10 @@ const Navbar = () => {
 
   // লিঙ্ক স্টাইল ফাংশন (Active এবং Inactive আলাদা করার জন্য)
   const getLinkClass = ({ isActive }) => 
-    `flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
+    `flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-bold transition-all duration-300 ${
       isActive 
         ? 'bg-[#244d3f] text-white shadow-md' // Active: Deep Green background, White text
-        : 'text-gray-600 hover:text-[#244d3f] hover:bg-gray-50' // Inactive style
+        : 'text-gray-600 hover:text-[#244d3f] hover:bg-gray-200' // Inactive style
     }`;
 
   return (
