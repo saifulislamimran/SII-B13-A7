@@ -2,18 +2,36 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Loader2, User, Search, ArrowUpDown, ChevronDown, Check } from 'lucide-react';
 
+// 🎯 ম্যাজিক কম্পোনেন্ট: ছবি না পেলে বা লিংক ভুল থাকলে অটোমেটিক Placeholder আইকন দেখাবে
+const FriendAvatar = ({ src, alt }) => {
+  const [hasError, setHasError] = useState(false);
+
+  if (!src || hasError) {
+    return <User className="w-10 h-10 text-gray-400 group-hover:scale-110 transition-transform" />;
+  }
+
+  return (
+    <img 
+      src={src} 
+      alt={alt} 
+      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+      onError={() => setHasError(true)} // ছবি লোড হতে ব্যর্থ হলে এরর স্টেট অন করে দেবে
+    />
+  );
+};
+
 const FriendsSection = () => {
   const [friends, setFriends] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortCriteria, setSortCriteria] = useState('Name'); // Name or Status
+  const [sortCriteria, setSortCriteria] = useState('Name'); 
   const [isSortOpen, setIsSortOpen] = useState(false);
 
   useEffect(() => {
-    // Show loading animation while fetching
     setTimeout(() => {
-      fetch('/friends.json')
+      // ক্যাশ ক্লিয়ার করার জন্য ফাইলের নামের সাথে রেন্ডম নাম্বার যুক্ত করা হয়েছে
+      fetch(`/friends.json?v=${new Date().getTime()}`)
         .then((res) => res.json())
         .then((data) => {
           setFriends(data);
@@ -41,19 +59,14 @@ const FriendsSection = () => {
     });
 
   return (
-    // Background Color: #f8fafc
     <section className="bg-[#f8fafc] py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         
-        {/* (Title + Search + Sort) */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10 relative z-20">
           <h2 className="text-3xl font-black text-gray-900">Your Friends</h2>
 
-          {/* সার্চ ও সর্ট কন্ট্রোলস */}
           {!isLoading && (
             <div className="flex flex-wrap gap-3 w-full md:w-auto">
-              
-              {/* Search Bar */}
               <div className="relative grow md:w-64">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
                 <input 
@@ -65,7 +78,6 @@ const FriendsSection = () => {
                 />
               </div>
 
-              {/* Sorting Dropdown */}
               <div className="relative">
                 <button 
                   onClick={() => setIsSortOpen(!isSortOpen)}
@@ -90,12 +102,10 @@ const FriendsSection = () => {
                   </>
                 )}
               </div>
-
             </div>
           )}
         </div>
 
-        {/* (বডি এরিয়া (Loading, Grid, Empty State)*/}
         {isLoading ? (
           <div className="flex flex-col items-center justify-center py-20">
             <Loader2 className="w-12 h-12 animate-spin text-[#244d3f] mb-4" />
@@ -103,7 +113,6 @@ const FriendsSection = () => {
           </div>
         ) : (
           <>
-            {/* Grid Layout: 4 columns on large screens */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {processedFriends.map((friend) => (
                 <Link 
@@ -112,32 +121,23 @@ const FriendsSection = () => {
                   className="bg-white rounded-[24px] p-6 shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 group"
                 >
                   <div className="flex flex-col items-center text-center">
-                    {/* Photo with placeholder icon */}
-                    <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4 overflow-hidden border-2 border-gray-50">
-                      <User className="w-10 h-10 text-gray-400 group-hover:scale-110 transition-transform" />
+                    
+                    <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4 overflow-hidden border-2 border-gray-50 shrink-0">
+                      {/* ডাইনামিক ছবি কম্পোনেন্ট কল করা হলো */}
+                      <FriendAvatar src={friend.picture} alt={friend.name} />
                     </div>
 
-                    {/* Name */}
                     <h3 className="text-xl font-bold text-gray-900 mb-1">{friend.name}</h3>
-                    
-                    {/* Days Since Contact */}
-                    <p className="text-gray-500 text-sm font-medium mb-4">
-                      {friend.days_since_contact}d ago
-                    </p>
+                    <p className="text-gray-500 text-sm font-medium mb-4">{friend.days_since_contact}d ago</p>
 
-                    {/* Tags: #cbfadb background */}
                     <div className="flex flex-wrap justify-center gap-2 mb-4">
                       {friend.tags.map((tag, i) => (
-                        <span 
-                          key={i} 
-                          className="bg-[#cbfadb] text-[#244d3f] px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider"
-                        >
+                        <span key={i} className="bg-[#cbfadb] text-[#244d3f] px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">
                           {tag}
                         </span>
                       ))}
                     </div>
 
-                    {/* Status: Centered below tags with specific background */}
                     <div className={`px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-widest ${getStatusStyle(friend.status)}`}>
                       {friend.status}
                     </div>
@@ -146,7 +146,6 @@ const FriendsSection = () => {
               ))}
             </div>
 
-            {/* Empty State */}
             {processedFriends.length === 0 && (
               <div className="text-center py-20 bg-white rounded-[24px] border border-gray-100 shadow-sm mt-6">
                 <Search className="mx-auto text-gray-300 mb-4" size={40} />

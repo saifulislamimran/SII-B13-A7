@@ -3,7 +3,24 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Phone, MessageSquare, Video, Edit3, User, Clock, Archive, Trash2 } from 'lucide-react';
 import { toast } from 'react-toastify';
 
-// onAddEvent প্রপস রিসিভ করা হলো
+// 🎯 ম্যাজিক কম্পোনেন্ট: Details পেজের জন্য
+const ProfileAvatar = ({ src, alt }) => {
+  const [hasError, setHasError] = useState(false);
+
+  if (!src || hasError) {
+    return <User size={36} className="text-gray-300" />;
+  }
+
+  return (
+    <img 
+      src={src} 
+      alt={alt} 
+      className="w-full h-full object-cover" 
+      onError={() => setHasError(true)}
+    />
+  );
+};
+
 const FriendDetails = ({ onAddEvent }) => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -11,7 +28,8 @@ const FriendDetails = ({ onAddEvent }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/friends.json')
+    // ক্যাশ এড়ানোর জন্য রেন্ডম ভ্যালু
+    fetch(`/friends.json?v=${new Date().getTime()}`)
       .then((res) => res.json())
       .then((data) => {
         const foundFriend = data.find((f) => f.id === parseInt(id));
@@ -21,12 +39,8 @@ const FriendDetails = ({ onAddEvent }) => {
       .catch((err) => console.error(err));
   }, [id]);
 
-  // Requirement 6: Button Functionality
   const handleCheckIn = (type) => {
-    // ১. Toast দেখানো
     toast.success(`${type} initiated with ${friend.name} 🚀`);
-    
-    // ২. Timeline এ ইভেন্ট যুক্ত করা
     if (onAddEvent) {
       onAddEvent(type, friend.name);
     }
@@ -60,7 +74,6 @@ const FriendDetails = ({ onAddEvent }) => {
     <div className="min-h-screen bg-[#f8fafc] py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         
-        {/* Navigation Header */}
         <div className="flex justify-between items-center mb-8">
           <button 
             onClick={() => navigate('/')}
@@ -73,15 +86,16 @@ const FriendDetails = ({ onAddEvent }) => {
           </div>
         </div>
 
-        {/* Master Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           
-          {/* ================= LEFT COLUMN ================= */}
           <div className="lg:col-span-4 flex flex-col gap-4 h-full">
             <div className="bg-white rounded-[24px] shadow-sm border border-gray-100 p-6 flex flex-col items-center text-center flex-1">
-              <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center border-4 border-gray-100 mb-3">
-                <User size={36} className="text-gray-300" />
+              
+              <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center border-4 border-gray-100 mb-3 overflow-hidden shrink-0">
+                {/* ডাইনামিক ছবি কম্পোনেন্ট কল করা হলো */}
+                <ProfileAvatar src={friend.picture} alt={friend.name} />
               </div>
+              
               <h1 className="text-2xl font-black text-gray-900 mb-2">{friend.name}</h1>
               <span className={`px-4 py-1 rounded-full text-[11px] font-black uppercase tracking-widest mb-4 ${getStatusStyle(friend.status)}`}>
                 {friend.status}
@@ -109,7 +123,6 @@ const FriendDetails = ({ onAddEvent }) => {
             </button>
           </div>
 
-          {/* ================= RIGHT COLUMN ================= */}
           <div className="lg:col-span-8 flex flex-col gap-4 h-full">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="bg-white rounded-[24px] p-6 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center">

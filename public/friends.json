@@ -14,7 +14,7 @@
   {
     "id": 2,
     "name": "Emma Wilson",
-    "picture": "/assets/user.png",
+    "picture": "/assets/",
     "email": "emma@example.com",
     "days_since_contact": 45,
     "status": "overdue",
