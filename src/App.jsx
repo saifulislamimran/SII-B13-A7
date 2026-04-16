@@ -2,34 +2,31 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Header from './components/Header';
-import './style.css'; 
+import FriendsSection from './components/FriendsSection';
+import './style.css';
 
 const Home = () => (
   <>
-    {/* 2. Banner Section */}
     <Header />
-    <div className="p-10 text-center">
-      <h2 className="text-3xl font-bold text-gray-400 italic">Friends Section Coming Soon...</h2>
-    </div>
+    <FriendsSection />
   </>
 );
 
-const Timeline = () => <div className="p-20 text-center"><h1 className="text-4xl font-bold">Timeline Page</h1></div>;
-const Stats = () => <div className="p-20 text-center"><h1 className="text-4xl font-bold">Stats Page</h1></div>;
-const NotFound = () => <div className="p-20 text-center text-red-500"><h1 className="text-6xl font-black mb-4">404</h1><p className="text-xl">Opps! Page not found.</p></div>;
+// Placeholder for Friend Details Page (Section 5)
+const FriendDetails = () => <div className="p-20 text-center text-2xl font-bold">Friend Details Page Layout Coming Soon...</div>;
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-white font-sans text-gray-900 flex flex-col">
+      <div className="min-h-screen bg-[#f8fafc] font-sans">
         <Navbar />
-        
-        <main className="flex-grow">
+        <main>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/timeline" element={<Timeline />} />
-            <Route path="/stats" element={<Stats />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="/friend/:id" element={<FriendDetails />} />
+            <Route path="/timeline" element={<div className="p-20 text-center">Timeline</div>} />
+            <Route path="/stats" element={<div className="p-20 text-center">Stats</div>} />
+            <Route path="*" element={<div className="p-20 text-center text-red-500 font-bold text-3xl">404 - Not Found</div>} />
           </Routes>
         </main>
       </div>
