@@ -26,7 +26,7 @@ const Footer = () => {
             </svg>
           </a>
           
-          {/* Custom Facebook Icon (ডিজাইন অনুযায়ী) */}
+          {/* Custom Facebook Icon */}
           <a href="#" className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-[#244d3f] hover:scale-110 transition-transform shadow-md">
             <span className="font-bold text-[22px] leading-none mb-1 mr-0.5">f</span>
           </a>

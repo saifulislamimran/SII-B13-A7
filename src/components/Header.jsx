@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Header = () => {
-  // Banner Statistics Data (আগের কোডের মত আলাদা কালার দেওয়া হয়েছে)
+  // Banner Statistics Data
   const stats = [
     { label: 'Total Friends', value: '10', color: 'text-gray-900' },
     { label: 'On Track', value: '3', color: 'text-green-500' },
@@ -29,14 +29,14 @@ const Header = () => {
           <span className="text-[24px] leading-none mb-0.5 font-light">+</span> Add a Friend
         </button>
         
-        {/* Statistics Grid (বক্স ডিজাইন ঠিক রেখে কালার যুক্ত করা হয়েছে) */}
+        {/* Statistics Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((stat, index) => (
             <div 
               key={index} 
               className="bg-[#ffffff] rounded-[8px] p-[32px] flex flex-col items-center justify-center gap-[8px] shadow-[0px_1px_6px_0px_rgba(0,0,0,0.08)] transition-transform hover:-translate-y-1"
             >
-              {/* Number: ডাইনামিক কালার এবং ফন্ট-ব্ল্যাক (সবচেয়ে বোল্ড) করা হয়েছে */}
+              {/* Number */}
               <span className={`text-[32px] font-black leading-[1.2] ${stat.color}`}>
                 {stat.value}
               </span>
