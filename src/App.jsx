@@ -6,6 +6,7 @@ import FriendsSection from './components/FriendsSection';
 import FriendDetails from './components/FriendDetails';
 import Timeline from './components/Timeline';
 import Stats from './components/Stats';
+import NotFound from './components/NotFound';
 import Footer from './components/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -47,7 +48,7 @@ function App() {
             <Route path="/friend/:id" element={<FriendDetails onAddEvent={handleAddTimelineEvent} />} />
             <Route path="/timeline" element={<Timeline events={timelineEvents} />} />
             <Route path="/stats" element={<Stats events={timelineEvents} />} />
-            <Route path="*" element={<div className="p-20 text-center text-red-500 font-bold text-3xl">404 - Not Found</div>} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
 
