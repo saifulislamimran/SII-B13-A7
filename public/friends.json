@@ -1,9 +1,9 @@
 [
   {
     "id": 1,
-    "name": "David Kim",
-    "picture": "/assets/user.png",
-    "email": "david@example.com",
+    "name": "Oli Ullah",
+    "picture": "/assets/Oli.jpg",
+    "email": "oli@example.com",
     "days_since_contact": 62,
     "status": "almost due",
     "tags": ["work"],
