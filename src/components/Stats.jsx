@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ListFilter, ChevronDown, Check, TrendingUp } from 'lucide-react';
 
-// events=[] দিয়ে ডিফল্ট একটি ফাঁকা অ্যারে রাখা হলো যাতে undefined এরর না আসে
 const Stats = ({ events = [] }) => {
   const [filter, setFilter] = useState('Overview');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   
-  // Stats পেজেই friends ডেটা ফেচ করা হচ্ছে
   const [friends, setFriends] = useState([]);
   const [loading, setLoading] = useState(true);
 

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Loader2, User, Search, ArrowUpDown, ChevronDown, Check } from 'lucide-react';
 
-// 🎯 ম্যাজিক কম্পোনেন্ট: ছবি না পেলে বা লিংক ভুল থাকলে অটোমেটিক Placeholder আইকন দেখাবে
 const FriendAvatar = ({ src, alt }) => {
   const [hasError, setHasError] = useState(false);
 
@@ -15,7 +14,7 @@ const FriendAvatar = ({ src, alt }) => {
       src={src} 
       alt={alt} 
       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-      onError={() => setHasError(true)} // ছবি লোড হতে ব্যর্থ হলে এরর স্টেট অন করে দেবে
+      onError={() => setHasError(true)}
     />
   );
 };
@@ -30,7 +29,6 @@ const FriendsSection = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      // ক্যাশ ক্লিয়ার করার জন্য ফাইলের নামের সাথে রেন্ডম নাম্বার যুক্ত করা হয়েছে
       fetch(`/friends.json?v=${new Date().getTime()}`)
         .then((res) => res.json())
         .then((data) => {
@@ -123,7 +121,6 @@ const FriendsSection = () => {
                   <div className="flex flex-col items-center text-center">
                     
                     <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4 overflow-hidden border-2 border-gray-50 shrink-0">
-                      {/* ডাইনামিক ছবি কম্পোনেন্ট কল করা হলো */}
                       <FriendAvatar src={friend.picture} alt={friend.name} />
                     </div>
 

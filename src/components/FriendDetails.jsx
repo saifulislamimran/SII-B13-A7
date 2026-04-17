@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Phone, MessageSquare, Video, Edit3, User, Clock, Archive, Trash2 } from 'lucide-react';
 import { toast } from 'react-toastify';
 
-// 🎯 ম্যাজিক কম্পোনেন্ট: Details পেজের জন্য
 const ProfileAvatar = ({ src, alt }) => {
   const [hasError, setHasError] = useState(false);
 
@@ -28,7 +27,6 @@ const FriendDetails = ({ onAddEvent }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // ক্যাশ এড়ানোর জন্য রেন্ডম ভ্যালু
     fetch(`/friends.json?v=${new Date().getTime()}`)
       .then((res) => res.json())
       .then((data) => {
@@ -92,7 +90,6 @@ const FriendDetails = ({ onAddEvent }) => {
             <div className="bg-white rounded-[24px] shadow-sm border border-gray-100 p-6 flex flex-col items-center text-center flex-1">
               
               <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center border-4 border-gray-100 mb-3 overflow-hidden shrink-0">
-                {/* ডাইনামিক ছবি কম্পোনেন্ট কল করা হলো */}
                 <ProfileAvatar src={friend.picture} alt={friend.name} />
               </div>
               
