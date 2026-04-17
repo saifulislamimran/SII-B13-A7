@@ -4,9 +4,8 @@
 
 ---
 
-## 🔗 Live Preview
-🌐 ** 1. Vercel [Click here to view the live project](https://sii-b13-a7.vercel.app/)**
-🌐 ** 2. Cloudflare Pages [Click here to view the live project](https://sii-b13-a7.saifulislamemran2017.workers.dev/)**
+## 🔗 Live Preview 🌐
+** 1. Vercel [Click here to view the live project in Vercel](https://sii-b13-a7.vercel.app/) 2. Cloudflare Pages [Click here to view the live project in Cloudflare Pages](https://sii-b13-a7.saifulislamemran2017.workers.dev/)**
 
 ---
 
