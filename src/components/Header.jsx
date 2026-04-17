@@ -3,9 +3,9 @@ import React from 'react';
 const Header = () => {
   // Banner Statistics Data
   const stats = [
-    { label: 'Total Friends', value: '10', color: 'text-gray-900' },
-    { label: 'On Track', value: '3', color: 'text-green-500' },
-    { label: 'Need Attention', value: '6', color: 'text-orange-500' },
+    { label: 'Total Friends', value: '12', color: 'text-gray-900' },
+    { label: 'On Track', value: '4', color: 'text-green-500' },
+    { label: 'Need Attention', value: '8', color: 'text-orange-500' },
     { label: 'Interactions This Month', value: '12', color: 'text-[#244d3f]' },
   ];
 
